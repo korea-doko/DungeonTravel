@@ -14,6 +14,8 @@ public enum EInputType
 
 public class InputManager : MonoBehaviour
 {
+    public static int NumOfInputType = Enum.GetNames(typeof(EInputType)).Length;
+    
     public static event EventHandler OnTouched;
     public static event EventHandler On_NE_Touched;
     public static event EventHandler On_SE_Touched;
@@ -38,7 +40,7 @@ public class InputManager : MonoBehaviour
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                OnTouched(this, EventArgs.Empty);
+                //OnTouched(this, EventArgs.Empty);
 
                 if (Input.mousePosition.x > halfWidth && Input.mousePosition.y > halfHeight)
                     On_NE_Touched(this, EventArgs.Empty);

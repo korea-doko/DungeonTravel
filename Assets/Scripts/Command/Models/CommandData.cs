@@ -1,16 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommandData : MonoBehaviour {
+[System.Serializable]
+public class CommandData
+{
+    public List<EInputType> commandInputList;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public CommandData()
+    {
+        commandInputList = new List<EInputType>();
+    }
+
+    internal void AddInput(EInputType randInputType)
+    {
+        commandInputList.Add(randInputType);
+    }
+
+    internal void Clear()
+    {
+        commandInputList.Clear();
+    }
 }
