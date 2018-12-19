@@ -36,13 +36,14 @@ public class CommandImage : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
-    internal void Show(EInputType inputType)
+
+    internal void Show(SubCommandData scd)
     {
-        rect.Rotate(0.0f, 0.0f,-45 + -90* (int)inputType);
+
+        rect.Rotate(0.0f, 0.0f, -45 + -90 * (int)scd.inputType);
         this.gameObject.SetActive(true);
-        
+
 
         animator.SetBool("IsShown", true);
     }
-
 }

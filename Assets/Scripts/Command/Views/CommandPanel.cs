@@ -9,8 +9,9 @@ public class CommandPanel : MonoBehaviour {
 
     [SerializeField] private List<CommandImage> commandImageList;
     [SerializeField] private Transform commandImageParent;
-    [SerializeField] private float panelWidth;
-    [SerializeField] private float panelHeight;
+
+    [SerializeField] private float panelSize;
+
     [SerializeField] private float sizeOfCommandImageWidth;
     [SerializeField] private float sizeOfCommandImageHeight;
     [SerializeField] private WaitForSeconds waitTime;
@@ -19,10 +20,9 @@ public class CommandPanel : MonoBehaviour {
     {
         RectTransform rect = this.GetComponent<RectTransform>();
 
-        panelWidth = rect.rect.width;
-        panelHeight = rect.rect.height;
+        panelSize = rect.rect.width;
 
-        sizeOfCommandImageWidth = panelWidth / model.MaxCommandLength;
+        sizeOfCommandImageWidth = panelSize / model.MaxCommandLength;
         sizeOfCommandImageHeight = sizeOfCommandImageWidth;
 
         commandImageList = new List<CommandImage>();
@@ -48,15 +48,11 @@ public class CommandPanel : MonoBehaviour {
 
     internal void Show(CommandModel model)
     {
-
         Hide();
         this.gameObject.SetActive(true);
 
-        StartCoroutine(ShowImageOneByOne(model));
-
-       
+        StartCoroutine(ShowImageOneByOne(model));       
     }
-
     public void Hide()
     {
         foreach (CommandImage ci in commandImageList)
@@ -65,13 +61,13 @@ public class CommandPanel : MonoBehaviour {
 
     private IEnumerator ShowImageOneByOne(CommandModel model)
     {
-        int comLen = model.commandData.commandInputList.Count;
+        int comLen = model.commandData.curNumOfActiveCommand;
 
         for (int i = 0; i < comLen; i++)
         {
-            EInputType inputType = model.commandData.commandInputList[i];
+            SubCommandData scd = model.commandData.subCommandList[i];            
             CommandImage ci = commandImageList[i];
-            ci.Show(inputType);
+            ci.Show(scd);
 
             yield return waitTime;
         }

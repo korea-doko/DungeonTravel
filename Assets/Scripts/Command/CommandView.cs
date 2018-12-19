@@ -8,16 +8,22 @@ public class CommandView : MonoBehaviour
     public event EventHandler OnShowImageEnded;
     
     public CommandPanel commandPanel;
+    public CommandInputBlocker commandInputBlocker;
+
 
 
     public void Init(CommandModel model)
     {
         commandPanel.OnShowImageEnded += CommandPanel_OnShowImageEnded;
+
         commandPanel.Init(model);
+
+        commandInputBlocker.Init();
     }
     internal void Hide()
     {
         commandPanel.Hide();
+        commandInputBlocker.UnblockAll();
     }
 
     internal void ShowCommand(CommandModel model)
@@ -30,5 +36,9 @@ public class CommandView : MonoBehaviour
         OnShowImageEnded(this, EventArgs.Empty);
     }
 
-    
+    internal void ShowInputBlocker(EInputType inputType)
+    {
+        commandInputBlocker.BlockAll();
+        commandInputBlocker.UnBlock(inputType);
+    }
 }
